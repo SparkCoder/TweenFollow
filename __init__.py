@@ -6,8 +6,8 @@ from .core.gui import TWEEN_UL_List_Item
 from .core.gui import TWEEN_UL_List
 from .core.gui import TWEEN_PT_Panel_Main
 
-from .core.operators import EF_OT_Apply_All_Op
-from .core.operators import EF_OT_Cancel_All_Op
+from .core.operators import TWEEN_OT_Add_Tween_Op
+from .core.operators import TWEEN_OT_Remove_Tween_Op
 
 from .core.common import Registerable
 
@@ -28,8 +28,8 @@ gui_registry: List[Registerable] = [
     TWEEN_PT_Panel_Main,
 ]
 op_registry: List[Registerable] = [
-    EF_OT_Apply_All_Op,
-    EF_OT_Cancel_All_Op,
+    TWEEN_OT_Add_Tween_Op,
+    TWEEN_OT_Remove_Tween_Op,
 ]
 
 

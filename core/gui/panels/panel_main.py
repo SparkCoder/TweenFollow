@@ -29,10 +29,16 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
         row = layout.row()
 
         col = row.column()
-        col.operator('object.apply_all_mods', text='App1y all')
-
+        col.operator('tween_list_items.add_tween', text='Add Tween')
         col = row.column()
-        col.operator('object.cancel_all_mods', text='Cancel all')
+        col.operator('tween_list_items.remove_tween', text='Remove Tween')
 
         row = layout.row()
         TWEEN_UL_List.draw('tween_list', context, row)
+
+        tween_list_items = context.scene.tween_list_items
+        tween_list_index = context.scene.tween_list_index
+        if len(tween_list_items) > 0 and tween_list_index >= 0:
+            row = layout.row()
+            row.prop_search(context.scene.tween_list_items[context.scene.tween_list_index], 'tween_source',
+                            context.scene, 'objects')
