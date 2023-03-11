@@ -1,5 +1,2 @@
-from typing import List
-
-from .. import Registerable
-
-gui_registry: List[Registerable] = []
+from .lists.tween_list import *
+from .panels.panel_main import *

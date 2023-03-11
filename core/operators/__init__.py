@@ -1,5 +1,2 @@
-from typing import List
-
-from .. import Registerable
-
-op_registry: List[Registerable] = []
+from .op_apply_all import *
+from .op_cancel_all import *

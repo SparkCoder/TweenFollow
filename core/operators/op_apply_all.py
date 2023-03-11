@@ -2,7 +2,7 @@ import bpy
 
 from bpy.types import Operator
 
-from . import Registerable, op_registry
+from ...core.common import Registerable
 
 
 class EF_OT_Apply_All_Op(Operator, Registerable):
@@ -37,6 +37,3 @@ class EF_OT_Apply_All_Op(Operator, Registerable):
             bpy.ops.object.modifier_apply(modifier=mod.name)
 
         return {'FINISHED'}
-
-
-op_registry += [EF_OT_Apply_All_Op]

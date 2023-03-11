@@ -1,2 +1,1 @@
-from .. import gui_registry
-from .. import Registerable
+from .panel_main import *

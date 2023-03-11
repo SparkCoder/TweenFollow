@@ -1,7 +1,15 @@
 import bpy
 
-from .core import gui_registry
-from .core import op_registry
+from typing import List
+
+from .core.gui import TWEEN_UL_List_Item
+from .core.gui import TWEEN_UL_List
+from .core.gui import TWEEN_PT_Panel_Main
+
+from .core.operators import EF_OT_Apply_All_Op
+from .core.operators import EF_OT_Cancel_All_Op
+
+from .core.common import Registerable
 
 bl_info = {
     'name': 'EaseFollow',
@@ -13,6 +21,16 @@ bl_info = {
     'warning': '',
     'category': 'Object'
 }
+
+
+gui_registry: List[Registerable] = [
+    TWEEN_UL_List,
+    TWEEN_PT_Panel_Main,
+]
+op_registry: List[Registerable] = [
+    EF_OT_Apply_All_Op,
+    EF_OT_Cancel_All_Op,
+]
 
 
 def register():
