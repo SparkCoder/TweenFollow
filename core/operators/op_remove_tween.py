@@ -22,15 +22,9 @@ class TWEEN_OT_Remove_Tween_Op(Operator, Registerable):
 
     @classmethod
     def poll(cls, context: Context):
-        return True
-
-        # obj = context.object
-
-        # if obj is not None:
-        #     if obj.mode == 'OBJECT':
-        #         return True
-
-        # return False
+        tween_list_items = context.scene.tween_list_items
+        tween_list_index = context.scene.tween_list_index
+        return len(tween_list_items) > 0 and tween_list_index >= 0 and tween_list_index < len(tween_list_items)
 
     def execute(self, context: Context):
         tween_list_items = context.scene.tween_list_items
