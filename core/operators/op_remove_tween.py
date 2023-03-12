@@ -1,14 +1,14 @@
 import bpy
 
-from bpy.types import Operator
+from bpy.types import Operator, Context
 
 from ..common import Registerable
 
 
 class TWEEN_OT_Remove_Tween_Op(Operator, Registerable):
-    bl_idname = 'tween_list_items.remove_tween'
+    bl_idname = 'tween_follow.remove_tween'
     bl_label = 'Remove Tween'
-    bl_description = 'Remove new tween'
+    bl_description = 'Removes a tween'
 
     @classmethod
     def register_cls(cls):
@@ -21,7 +21,7 @@ class TWEEN_OT_Remove_Tween_Op(Operator, Registerable):
         bpy.utils.unregister_class(cls)
 
     @classmethod
-    def poll(cls, context):
+    def poll(cls, context: Context):
         return True
 
         # obj = context.object
@@ -32,7 +32,7 @@ class TWEEN_OT_Remove_Tween_Op(Operator, Registerable):
 
         # return False
 
-    def execute(self, context):
+    def execute(self, context: Context):
         tween_list_items = context.scene.tween_list_items
         index = context.scene.tween_list_index
 

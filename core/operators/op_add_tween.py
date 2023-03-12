@@ -1,14 +1,14 @@
 import bpy
 
-from bpy.types import Operator
+from bpy.types import Operator, Context
 
 from ..common import Registerable
 
 
 class TWEEN_OT_Add_Tween_Op(Operator, Registerable):
-    bl_idname = 'tween_list_items.add_tween'
+    bl_idname = 'tween_follow.add_tween'
     bl_label = 'Add Tween'
-    bl_description = 'Add new tween'
+    bl_description = 'Adda a new tween'
 
     @classmethod
     def register_cls(cls):
@@ -21,7 +21,7 @@ class TWEEN_OT_Add_Tween_Op(Operator, Registerable):
         bpy.utils.unregister_class(cls)
 
     @classmethod
-    def poll(cls, context):
+    def poll(cls, context: Context):
         return True
 
         # obj = context.object
@@ -32,10 +32,10 @@ class TWEEN_OT_Add_Tween_Op(Operator, Registerable):
 
         # return False
 
-    def execute(self, context):
+    def execute(self, context: Context):
         tween_list_items = context.scene.tween_list_items
         tween_list_items.add()
 
-        context.scene.tween_list_index = len(tween_list_items) - 1
+        # context.scene.tween_list_index = len(tween_list_items) - 1
 
         return {'FINISHED'}

@@ -1,23 +1,43 @@
 import bpy
 
 from bpy.types import PropertyGroup
-from bpy.types import UIList, UILayout
-from bpy.props import StringProperty, IntProperty, CollectionProperty
+from bpy.types import UIList, UILayout, Context
+from bpy.props import CollectionProperty, PointerProperty, EnumProperty, IntProperty, BoolProperty
 
 from ....core.common import Registerable, PropertyHolder
 
 
 class TWEEN_UL_Target_List_Item(PropertyGroup):
-    tween_target: bpy.props.PointerProperty(
-        type=bpy.types.Object, name='tween_target')
+    tween_target: PointerProperty(
+        type=bpy.types.Object,
+        name='tween_target'
+    )
 
 
 class TWEEN_UL_List_Item(PropertyGroup):
-    tween_source: bpy.props.PointerProperty(
-        type=bpy.types.Object, name='tween_source')
+    tween_source: PointerProperty(
+        type=bpy.types.Object,
+        name='tween_source',
+    )
     tween_target_list: CollectionProperty(
         name='tween_target_list',
         type=TWEEN_UL_Target_List_Item,
+    )
+    tween_target_coll: PointerProperty(
+        type=bpy.types.Object,
+        name='tween_target_coll',
+    )
+    tween_target_type: EnumProperty(
+        name='Tween Target Type',
+        items=(
+            ('Objs', 'Objects', 'Use a list of objects as target'),
+            ('Coll', 'Collection', 'Use a collection as target'),
+        ),
+        default='Objs',
+    )
+    use_tween: BoolProperty(
+        name='use_tween',
+        default=True
     )
 
 
@@ -61,15 +81,16 @@ class TWEEN_UL_List(UIList, Registerable):
         bpy.utils.unregister_class(TWEEN_UL_List_Item)
         bpy.utils.unregister_class(TWEEN_UL_Target_List_Item)
 
-    def draw_item(self, context, layout: UILayout, data, item: TWEEN_UL_List_Item, icon, active_data, active_propname, index):
+    def draw_item(self, context: Context, layout: UILayout, data, item: TWEEN_UL_List_Item, icon, active_data, active_propname, index):
         if self.layout_type in {'DEFAULT', 'COMPACT'}:
             obj = item.tween_source
             if obj is not None:
                 layout.label(text=obj.name)
             else:
-                layout.label(text='No source selected')
+                layout.label(text=f'{index+1}) No source selected')
+            layout.prop(item, 'use_tween', text='')
 
     @classmethod
-    def draw(cls, list_id: str, context, layout: UILayout):
+    def draw(cls, list_id: str, context: Context, layout: UILayout):
         layout.template_list(cls.__name__, list_id, context.scene,
                              cls.tween_list_items.name, context.scene, cls.tween_list_index.name)
