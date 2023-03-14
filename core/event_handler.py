@@ -27,7 +27,8 @@ class EventHandler(Registerable):
             if tween.tween_target_type == 'Objs':
                 for target in tween.tween_target_list:
                     tar_object = target.tween_target
-                    tar_object.location[2] += (src_object.location[2] -
-                                               tar_object.location[2]) * target.ease
-                    
+                    for i in range(3):
+                        tar_object.location[i] += (src_object.location[i] -
+                                                   tar_object.location[i]) * target.ease
+
         scene.tween_reset_done = False
