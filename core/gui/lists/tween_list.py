@@ -58,7 +58,7 @@ class TWEEN_UL_List_Item(PropertyGroup):
     )
     tween_target_coll: PointerProperty(
         name='tween_target_coll',
-        type=bpy.types.Collection,
+        type=TWEEN_UL_Target_Coll,
     )
     tween_target_type: EnumProperty(
         name='Tween Target Type',
@@ -97,6 +97,7 @@ class TWEEN_UL_List(UIList, Registerable):
     @classmethod
     def register_cls(cls):
         # Register property dependency classes
+        bpy.utils.register_class(TWEEN_UL_Target_Coll)
         bpy.utils.register_class(TWEEN_UL_Target_List_Item)
         bpy.utils.register_class(TWEEN_UL_List_Item)
         # Register properties
@@ -117,6 +118,7 @@ class TWEEN_UL_List(UIList, Registerable):
         # Unregister property dependency classes
         bpy.utils.unregister_class(TWEEN_UL_List_Item)
         bpy.utils.unregister_class(TWEEN_UL_Target_List_Item)
+        bpy.utils.unregister_class(TWEEN_UL_Target_Coll)
 
     def draw_item(self, context: Context, layout: UILayout, data, item: TWEEN_UL_List_Item, icon, active_data, active_propname, index):
         if self.layout_type in {'DEFAULT', 'COMPACT'}:

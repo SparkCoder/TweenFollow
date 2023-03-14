@@ -89,10 +89,17 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
 
             row = layout.row()
 
-            row = layout.row()
             if tween_list_item.tween_target_type == 'Coll':
-                row.prop_search(tween_list_item, 'tween_target_coll',
+                row = layout.row(align=True)
+                col = row.column()
+                col.prop(tween_list_item.tween_target_coll, 'expanded', text='', icon=(
+                    'DOWNARROW_HLT' if tween_list_item.tween_target_coll.expanded else 'RIGHTARROW'), icon_only=True, emboss=False)
+                col = row.column()
+                col.prop_search(tween_list_item.tween_target_coll, 'tween_target',
                                 bpy.data, 'collections', text='')
+                if tween_list_item.tween_target_coll.expanded:
+                    row_exp = col.row()
+                    row_exp.prop(tween_list_item.tween_target_coll, 'ease')
             else:
                 box = layout.box()
                 for i, tween_target_item in enumerate(tween_list_item.tween_target_list):
