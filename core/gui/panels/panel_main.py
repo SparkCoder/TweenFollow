@@ -87,13 +87,19 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
             else:
                 box = layout.box()
                 for i, tween_target_item in enumerate(tween_list_item.tween_target_list):
-                    row = box.row()
+                    row = box.row(align=True)
+                    col = row.column()
+                    col.prop(tween_target_item, 'expanded', text='', icon=(
+                        'DOWNARROW_HLT' if tween_target_item.expanded else 'RIGHTARROW'), icon_only=True, emboss=False)
                     col = row.column()
                     col.prop_search(
                         tween_target_item, 'tween_target', bpy.data, 'objects', text='')
+                    if tween_target_item.expanded:
+                        row_exp = col.row()
+                        row_exp.prop(tween_target_item, 'ease')
                     col = row.column()
                     col.operator('tween_follow.remove_tween_target',
-                                 text='', icon='X').tween_target_index = i
+                                 text='', icon='X', emboss=False).tween_target_index = i
 
                 row = box.row()
                 row.operator('tween_follow.add_tween_target',

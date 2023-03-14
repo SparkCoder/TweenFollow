@@ -1,8 +1,8 @@
 import bpy
 
 from bpy.types import PropertyGroup
-from bpy.types import UIList, UILayout, Context
-from bpy.props import CollectionProperty, PointerProperty, EnumProperty, IntProperty, BoolProperty
+from bpy.types import UIList, UILayout, Context, CurveMapping
+from bpy.props import CollectionProperty, PointerProperty, EnumProperty, IntProperty, BoolProperty, FloatProperty
 
 from ....core.common import Registerable, PropertyHolder
 
@@ -11,6 +11,16 @@ class TWEEN_UL_Target_List_Item(PropertyGroup):
     tween_target: PointerProperty(
         type=bpy.types.Object,
         name='tween_target'
+    )
+    ease: FloatProperty(
+        name='ease',
+        default=0.1,
+        min=0.0,
+        max=1.0
+    )
+    expanded: BoolProperty(
+        name='expanded',
+        default=False
     )
 
 

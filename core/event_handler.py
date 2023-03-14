@@ -28,4 +28,4 @@ class EventHandler(Registerable):
                 for target in tween.tween_target_list:
                     tar_object = target.tween_target
                     tar_object.location[2] += (src_object.location[2] -
-                                               tar_object.location[2]) * 0.1
+                                               tar_object.location[2]) * target.ease
