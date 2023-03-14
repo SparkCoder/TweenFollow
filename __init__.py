@@ -9,6 +9,7 @@ from .core.gui import TWEEN_PT_Panel_Main
 
 from .core.operators import TWEEN_OT_Start_Tweens_Op
 from .core.operators import TWEEN_OT_Stop_Tweens_Op
+from .core.operators import TWEEN_OT_Reset_Tweens_Op
 from .core.operators import TWEEN_OT_Add_Tween_Op
 from .core.operators import TWEEN_OT_Remove_Tween_Op
 from .core.operators import TWEEN_OT_Add_Tween_Target_Op
@@ -35,6 +36,7 @@ gui_registry: List[Registerable] = [
 op_registry: List[Registerable] = [
     TWEEN_OT_Start_Tweens_Op,
     TWEEN_OT_Stop_Tweens_Op,
+    TWEEN_OT_Reset_Tweens_Op,
     TWEEN_OT_Add_Tween_Op,
     TWEEN_OT_Remove_Tween_Op,
     TWEEN_OT_Add_Tween_Target_Op,

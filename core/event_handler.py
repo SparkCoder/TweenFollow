@@ -29,3 +29,5 @@ class EventHandler(Registerable):
                     tar_object = target.tween_target
                     tar_object.location[2] += (src_object.location[2] -
                                                tar_object.location[2]) * target.ease
+                    
+        scene.tween_reset_done = False

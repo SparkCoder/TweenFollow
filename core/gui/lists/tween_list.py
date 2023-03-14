@@ -1,16 +1,39 @@
 import bpy
 
 from bpy.types import PropertyGroup
-from bpy.types import UIList, UILayout, Context, CurveMapping
-from bpy.props import CollectionProperty, PointerProperty, EnumProperty, IntProperty, BoolProperty, FloatProperty
+from bpy.types import UIList, UILayout, Context
+from bpy.props import CollectionProperty, PointerProperty, EnumProperty, IntProperty, BoolProperty, FloatProperty, FloatVectorProperty
 
 from ....core.common import Registerable, PropertyHolder
+
+
+class TWEEN_UL_Target_Coll(PropertyGroup):
+    tween_target: PointerProperty(
+        type=bpy.types.Collection,
+        name='tween_target'
+    )
+    tween_pos: FloatVectorProperty(
+        name='tween_pos'
+    )
+    ease: FloatProperty(
+        name='ease',
+        default=0.1,
+        min=0.0,
+        max=1.0
+    )
+    expanded: BoolProperty(
+        name='expanded',
+        default=False
+    )
 
 
 class TWEEN_UL_Target_List_Item(PropertyGroup):
     tween_target: PointerProperty(
         type=bpy.types.Object,
         name='tween_target'
+    )
+    tween_pos: FloatVectorProperty(
+        name='tween_pos'
     )
     ease: FloatProperty(
         name='ease',
@@ -34,8 +57,8 @@ class TWEEN_UL_List_Item(PropertyGroup):
         type=TWEEN_UL_Target_List_Item,
     )
     tween_target_coll: PointerProperty(
-        type=bpy.types.Object,
         name='tween_target_coll',
+        type=bpy.types.Collection,
     )
     tween_target_type: EnumProperty(
         name='Tween Target Type',
@@ -44,6 +67,10 @@ class TWEEN_UL_List_Item(PropertyGroup):
             ('Coll', 'Collection', 'Use a collection as target'),
         ),
         default='Objs',
+    )
+    keep_offset: BoolProperty(
+        name='keep_offset',
+        default=True
     )
     use_tween: BoolProperty(
         name='use_tween',

@@ -21,12 +21,21 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
              default=False
         )
     )
+    tween_reset_done = PropertyHolder(
+        name='tween_reset_done',
+        property=BoolProperty(
+             name='tween_reset_done',
+             default=True
+        )
+    )
 
     @classmethod
     def register_cls(cls):
         # Register properties
         setattr(bpy.types.Scene, cls.tween_follow_is_playing.name,
                 cls.tween_follow_is_playing.property)
+        setattr(bpy.types.Scene, cls.tween_reset_done.name,
+                cls.tween_reset_done.property)
         # Register class
         bpy.utils.register_class(cls)
 
@@ -35,6 +44,7 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
         # Unregister class
         bpy.utils.unregister_class(cls)
         # Unregister properties
+        delattr(bpy.types.Scene, cls.tween_reset_done.name)
         delattr(bpy.types.Scene, cls.tween_follow_is_playing.name)
 
     def draw(self, context: Context):
@@ -50,12 +60,9 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
         else:
             row.operator('tween_follow.start_tweens',
                          text='START', icon='PLAY')
-
-        # row = layout.row()
-        # col = row.column()
         row.operator('tween_follow.add_tween', text='', icon='ADD')
-        # col = row.column()
         row.operator('tween_follow.remove_tween', text='', icon='REMOVE')
+        row.operator('tween_follow.reset_tweens', text='', icon='RECOVER_LAST')
 
         row = layout.row()
         TWEEN_UL_List.draw('tween_list', context, row)
@@ -79,6 +86,8 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
 
             row = layout.row()
             row.prop(tween_list_item, 'tween_target_type', text='')
+
+            row = layout.row()
 
             row = layout.row()
             if tween_list_item.tween_target_type == 'Coll':
