@@ -37,11 +37,14 @@ class TWEEN_OT_Reset_Tweens_Op(Operator, Registerable):
 
         tween_list_items = context.scene.tween_list_items
         for tween in tween_list_items:
-            if tween.tween_target_coll is not None:
-                tween.tween_target_coll.tween_target.location = tween.tween_target_coll.tween_pos
-            for tween_obj in tween.tween_target_list:
-                if tween_obj.tween_target is not None:
-                    tween_obj.tween_target.location = tween_obj.tween_pos
+            if tween.tween_target_type == 'Objs':
+                for tween_obj in tween.tween_target_list:
+                    if tween_obj.tween_target is not None:
+                        tween_obj.tween_target.location = tween_obj.tween_pos
+            elif tween.tween_target_type == 'Coll':
+                for i, tween_obj in enumerate(tween.tween_target_coll.tween_target.all_objects):
+                    if tween_obj is not None:
+                        tween_obj.location = tween.tween_target_coll.tween_poses[i].tween_pos
 
         context.scene.tween_reset_done = True
 

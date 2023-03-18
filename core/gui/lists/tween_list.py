@@ -7,13 +7,20 @@ from bpy.props import CollectionProperty, PointerProperty, EnumProperty, IntProp
 from ....core.common import Registerable, PropertyHolder
 
 
+class TWEEN_UL_Target_Coll_Pos_Item(PropertyGroup):
+    tween_pos: FloatVectorProperty(
+        name='tween_pos'
+    )
+
+
 class TWEEN_UL_Target_Coll(PropertyGroup):
     tween_target: PointerProperty(
         type=bpy.types.Collection,
         name='tween_target'
     )
-    tween_pos: FloatVectorProperty(
-        name='tween_pos'
+    tween_poses: CollectionProperty(
+        name='tween_poses',
+        type=TWEEN_UL_Target_Coll_Pos_Item,
     )
     ease: FloatProperty(
         name='ease',
@@ -29,8 +36,8 @@ class TWEEN_UL_Target_Coll(PropertyGroup):
 
 class TWEEN_UL_Target_List_Item(PropertyGroup):
     tween_target: PointerProperty(
+        name='tween_target',
         type=bpy.types.Object,
-        name='tween_target'
     )
     tween_pos: FloatVectorProperty(
         name='tween_pos'
@@ -48,9 +55,9 @@ class TWEEN_UL_Target_List_Item(PropertyGroup):
 
 
 class TWEEN_UL_List_Item(PropertyGroup):
-    tween_source: PointerProperty(
+    tween_attractor: PointerProperty(
         type=bpy.types.Object,
-        name='tween_source',
+        name='tween_attractor',
     )
     tween_target_list: CollectionProperty(
         name='tween_target_list',
@@ -97,6 +104,7 @@ class TWEEN_UL_List(UIList, Registerable):
     @classmethod
     def register_cls(cls):
         # Register property dependency classes
+        bpy.utils.register_class(TWEEN_UL_Target_Coll_Pos_Item)
         bpy.utils.register_class(TWEEN_UL_Target_Coll)
         bpy.utils.register_class(TWEEN_UL_Target_List_Item)
         bpy.utils.register_class(TWEEN_UL_List_Item)
@@ -119,14 +127,15 @@ class TWEEN_UL_List(UIList, Registerable):
         bpy.utils.unregister_class(TWEEN_UL_List_Item)
         bpy.utils.unregister_class(TWEEN_UL_Target_List_Item)
         bpy.utils.unregister_class(TWEEN_UL_Target_Coll)
+        bpy.utils.unregister_class(TWEEN_UL_Target_Coll_Pos_Item)
 
     def draw_item(self, context: Context, layout: UILayout, data, item: TWEEN_UL_List_Item, icon, active_data, active_propname, index):
         if self.layout_type in {'DEFAULT', 'COMPACT'}:
-            obj = item.tween_source
+            obj = item.tween_attractor
             if obj is not None:
-                layout.label(text=obj.name)
+                layout.label(text=f'{index+1}) {obj.name}')
             else:
-                layout.label(text=f'{index+1}) No source selected')
+                layout.label(text=f'{index+1}) No attractor selected')
             layout.prop(item, 'use_tween', text='')
 
     @classmethod

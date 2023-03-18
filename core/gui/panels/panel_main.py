@@ -75,19 +75,20 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
             layout.separator()
 
             row = layout.row()
-            row.label(text='Tween Source', icon='CURVE_NCIRCLE')
+            row.label(text='Tween Attractor', icon='CURVE_NCIRCLE')
 
             row = layout.row()
-            row.prop_search(tween_list_item, 'tween_source',
+            row.prop_search(tween_list_item, 'tween_attractor',
                             context.scene, 'objects', text='')
 
             row = layout.row()
             row.label(text='Tween Target', icon='FORCE_CURVE')
 
             row = layout.row()
-            row.prop(tween_list_item, 'tween_target_type', text='')
+            row.prop(tween_list_item, 'keep_offset', text='Keep Relative Offset')
 
             row = layout.row()
+            row.prop(tween_list_item, 'tween_target_type', text='')
 
             if tween_list_item.tween_target_type == 'Coll':
                 row = layout.row(align=True)

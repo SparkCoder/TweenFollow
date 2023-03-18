@@ -37,11 +37,15 @@ class TWEEN_OT_Start_Tweens_Op(Operator, Registerable):
 
         tween_list_items = context.scene.tween_list_items
         for tween in tween_list_items:
-            if tween.tween_target_coll is not None:
-                tween.tween_target_coll.tween_pos = tween.tween_target_coll.tween_target.location
-            for tween_obj in tween.tween_target_list:
-                if tween_obj.tween_target is not None:
-                    tween_obj.tween_pos = tween_obj.tween_target.location
+            if tween.tween_target_type == 'Objs':
+                for tween_obj in tween.tween_target_list:
+                    if tween_obj.tween_target is not None:
+                        tween_obj.tween_pos = tween_obj.tween_target.location
+            elif tween.tween_target_type == 'Coll':
+                tween.tween_target_coll.tween_poses.clear()
+                for tween_obj in tween.tween_target_coll.tween_target.all_objects:
+                    if tween_obj is not None:
+                        tween.tween_target_coll.tween_poses.add().tween_pos = tween_obj.location
 
         context.scene.tween_follow_is_playing = True
 
