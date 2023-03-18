@@ -9,6 +9,7 @@ class TWEEN_OT_Add_Tween_Target_Op(Operator, Registerable):
     bl_idname = 'tween_follow.add_tween_target'
     bl_label = 'Add Tween Target'
     bl_description = 'Adds a new tween target object'
+    bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
     def register_cls(cls):

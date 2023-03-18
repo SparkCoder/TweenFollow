@@ -9,6 +9,7 @@ class TWEEN_OT_Reset_Tweens_Op(Operator, Registerable):
     bl_idname = 'tween_follow.reset_tweens'
     bl_label = 'Reset Tweens'
     bl_description = 'Resets all running tweens'
+    bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
     def register_cls(cls):
@@ -44,7 +45,7 @@ class TWEEN_OT_Reset_Tweens_Op(Operator, Registerable):
             elif tween.tween_target_type == 'Coll':
                 for i, tween_obj in enumerate(tween.tween_target_coll.tween_target.all_objects):
                     if tween_obj is not None:
-                        tween_obj.location = tween.tween_target_coll.tween_poses[i].tween_pos
+                        tween_obj.location = tween.tween_target_coll.tween_obj_datas[i].tween_pos
 
         context.scene.tween_reset_done = True
 

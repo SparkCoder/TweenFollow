@@ -18,12 +18,12 @@ class TWEEN_UL_Target_Coll(PropertyGroup):
         type=bpy.types.Collection,
         name='tween_target'
     )
-    tween_poses: CollectionProperty(
-        name='tween_poses',
+    tween_obj_datas: CollectionProperty(
+        name='tween_obj_datas',
         type=TWEEN_UL_Target_Coll_Pos_Item,
     )
-    ease: FloatProperty(
-        name='ease',
+    step_per_frame: FloatProperty(
+        name='Step Per Frame',
         default=0.1,
         min=0.0,
         max=1.0
@@ -42,8 +42,8 @@ class TWEEN_UL_Target_List_Item(PropertyGroup):
     tween_pos: FloatVectorProperty(
         name='tween_pos'
     )
-    ease: FloatProperty(
-        name='ease',
+    step_per_frame: FloatProperty(
+        name='Step Per Frame',
         default=0.1,
         min=0.0,
         max=1.0

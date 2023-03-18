@@ -9,6 +9,7 @@ class TWEEN_OT_Start_Tweens_Op(Operator, Registerable):
     bl_idname = 'tween_follow.start_tweens'
     bl_label = 'Start Tweens'
     bl_description = 'Starts all active tweens'
+    bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
     def register_cls(cls):
@@ -42,10 +43,10 @@ class TWEEN_OT_Start_Tweens_Op(Operator, Registerable):
                     if tween_obj.tween_target is not None:
                         tween_obj.tween_pos = tween_obj.tween_target.location
             elif tween.tween_target_type == 'Coll':
-                tween.tween_target_coll.tween_poses.clear()
+                tween.tween_target_coll.tween_obj_datas.clear()
                 for tween_obj in tween.tween_target_coll.tween_target.all_objects:
                     if tween_obj is not None:
-                        tween.tween_target_coll.tween_poses.add().tween_pos = tween_obj.location
+                        tween.tween_target_coll.tween_obj_datas.add().tween_pos = tween_obj.location
 
         context.scene.tween_follow_is_playing = True
 

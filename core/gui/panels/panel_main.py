@@ -85,7 +85,8 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
             row.label(text='Tween Target', icon='FORCE_CURVE')
 
             row = layout.row()
-            row.prop(tween_list_item, 'keep_offset', text='Keep Relative Offset')
+            row.prop(tween_list_item, 'keep_offset',
+                     text='Keep Relative Offset')
 
             row = layout.row()
             row.prop(tween_list_item, 'tween_target_type', text='')
@@ -99,8 +100,9 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
                 col.prop_search(tween_list_item.tween_target_coll, 'tween_target',
                                 bpy.data, 'collections', text='')
                 if tween_list_item.tween_target_coll.expanded:
+                    tween_target_item = tween_list_item.tween_target_coll
                     row_exp = col.row()
-                    row_exp.prop(tween_list_item.tween_target_coll, 'ease')
+                    row_exp.prop(tween_target_item, 'step_per_frame')
             else:
                 box = layout.box()
                 for i, tween_target_item in enumerate(tween_list_item.tween_target_list):
@@ -113,7 +115,7 @@ class TWEEN_PT_Panel_Main(Panel, Registerable):
                         tween_target_item, 'tween_target', bpy.data, 'objects', text='')
                     if tween_target_item.expanded:
                         row_exp = col.row()
-                        row_exp.prop(tween_target_item, 'ease')
+                        row_exp.prop(tween_target_item, 'step_per_frame')
                     col = row.column()
                     col.operator('tween_follow.remove_tween_target',
                                  text='', icon='X', emboss=False).tween_target_index = i

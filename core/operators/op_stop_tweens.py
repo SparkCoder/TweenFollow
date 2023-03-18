@@ -9,6 +9,7 @@ class TWEEN_OT_Stop_Tweens_Op(Operator, Registerable):
     bl_idname = 'tween_follow.stop_tweens'
     bl_label = 'Stop Tweens'
     bl_description = 'Stops all running tweens'
+    bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
     def register_cls(cls):

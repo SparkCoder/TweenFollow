@@ -10,6 +10,7 @@ class TWEEN_OT_Remove_Tween_Target_Op(Operator, Registerable):
     bl_idname = 'tween_follow.remove_tween_target'
     bl_label = 'Remove Tween Target'
     bl_description = 'Removes a tween target'
+    bl_options = {"REGISTER", "UNDO"}
 
     tween_target_index: IntProperty(
         name='tween_target_index',
